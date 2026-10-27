@@ -1,0 +1,10 @@
+node_modules/
+dist/
+dist-test/
+*.tsbuildinfo
+.DS_Store
+.cache/
+.tmp-report/
+.tmp-import/
+.dsh-office-*/
+vendor/backup/
