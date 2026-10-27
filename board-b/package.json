@@ -1,0 +1,33 @@
+{
+  "name": "attention-highlight-board-b",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.25.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -b && tsc -p tsconfig.integration.json",
+    "typecheck": "tsc -b --pretty false",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:integration": "vitest run tests/integration.test.ts",
+    "validate:levels": "tsx packages/schema/src/cli.ts validate levels/draft/levels.json --mode draft",
+    "validate:release": "tsx packages/schema/src/cli.ts validate levels/draft/levels.json --mode release",
+    "build:levels": "tsx packages/schema/src/cli.ts package levels/draft/levels.json levels/draft/levels.package.json",
+    "build:release": "tsx packages/schema/src/cli.ts package levels/draft/levels.json levels/release/levels.json --mode release",
+    "preflight": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/preflight.ps1",
+    "package:handoff": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package.ps1",
+    "daily:demo": "tsx integration/daily-server.ts"
+  },
+  "devDependencies": {
+    "@attention/daily": "workspace:*",
+    "@attention/engine": "workspace:*",
+    "@attention/schema": "workspace:*",
+    "@types/node": "^24.0.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0",
+    "vitest": "^3.2.0"
+  }
+}

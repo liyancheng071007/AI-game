@@ -1,0 +1,98 @@
+[
+  {
+    "id": "P-COREF-01",
+    "lens": "coref",
+    "tokens": ["奶娃", "把", "帽子", "交给", "小胖", "，", "他", "笑着", "跑回家", "。"],
+    "focus": 6,
+    "punct": [5, 9],
+    "targets": [4]
+  },
+  {
+    "id": "P-COREF-02",
+    "lens": "coref",
+    "tokens": ["妈妈牛", "看见", "奶娃", "哭", "了", "，", "她", "慢慢", "走过去", "。"],
+    "focus": 6,
+    "punct": [5, 9],
+    "targets": [0]
+  },
+  {
+    "id": "P-COREF-03",
+    "lens": "coref",
+    "tokens": ["小胖", "发现", "豆包", "忘带", "雨伞", "，", "他", "把", "雨伞", "借给", "豆包", "。"],
+    "focus": 6,
+    "punct": [5, 11],
+    "targets": [0]
+  },
+  {
+    "id": "P-CAUSAL-01",
+    "lens": "causal",
+    "tokens": ["雨", "下得", "很大", "，", "奶娃", "穿上", "雨衣", "。"],
+    "focus": 5,
+    "punct": [3, 7],
+    "targets": [0]
+  },
+  {
+    "id": "P-CAUSAL-02",
+    "lens": "causal",
+    "tokens": ["小胖", "摔倒", "了", "，", "妈妈牛", "赶紧", "扶起", "他", "。"],
+    "focus": 6,
+    "punct": [3, 8],
+    "targets": [1]
+  },
+  {
+    "id": "P-CAUSAL-03",
+    "lens": "causal",
+    "tokens": ["豆包", "肚子疼", "，", "所以", "奶娃", "陪", "他", "去", "找医生", "。"],
+    "focus": 5,
+    "punct": [2, 9],
+    "targets": [1]
+  },
+  {
+    "id": "P-EMOTION-01",
+    "lens": "emotion",
+    "tokens": ["奶娃", "收到", "礼物", "，", "开心", "地", "笑", "了", "。"],
+    "focus": 4,
+    "punct": [3, 8],
+    "targets": [1]
+  },
+  {
+    "id": "P-EMOTION-02",
+    "lens": "emotion",
+    "tokens": ["小胖", "迷路", "了", "，", "害怕", "得", "哭起来", "。"],
+    "focus": 4,
+    "punct": [3, 7],
+    "targets": [1]
+  },
+  {
+    "id": "P-EMOTION-03",
+    "lens": "emotion",
+    "tokens": ["妈妈牛", "看见", "奶娃", "回来", "，", "放心", "地", "笑", "了", "。"],
+    "focus": 5,
+    "punct": [4, 9],
+    "targets": [2]
+  },
+  {
+    "id": "P-POSITION-01",
+    "lens": "position",
+    "tokens": ["豆包", "把", "书", "放", "在", "桌上", "。"],
+    "focus": 2,
+    "punct": [6],
+    "targets": [1, 3]
+  },
+  {
+    "id": "P-POSITION-02",
+    "lens": "position",
+    "tokens": ["奶娃", "轻轻", "关上", "房门", "，", "妈妈牛", "笑了", "。"],
+    "focus": 2,
+    "punct": [4, 7],
+    "targets": [1, 3]
+  },
+  {
+    "id": "P-POSITION-03",
+    "lens": "position",
+    "tokens": ["小胖", "找到", "帽子", "后", "开心", "地", "跑", "。"],
+    "focus": 3,
+    "punct": [7],
+    "targets": [2, 4]
+  }
+]

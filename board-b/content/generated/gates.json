@@ -1,0 +1,104 @@
+{
+  "generatedAt": "2026-10-27T06:38:27.103704+00:00",
+  "passed": [
+    "L1-01",
+    "L1-02",
+    "L2-01",
+    "L2-02",
+    "L3-01",
+    "L3-02",
+    "L4-01",
+    "L4-02",
+    "L5-01",
+    "L5-02",
+    "L6-01",
+    "L6-02"
+  ],
+  "rejected": [],
+  "records": [
+    {
+      "id": "L1-01",
+      "passed": true,
+      "issues": [],
+      "crossModelAgreement": 0.97619047619,
+      "caseStrength": 0.465352571424
+    },
+    {
+      "id": "L1-02",
+      "passed": true,
+      "issues": [],
+      "crossModelAgreement": 0.833333333333,
+      "caseStrength": 0.508523422918
+    },
+    {
+      "id": "L2-01",
+      "passed": true,
+      "issues": [],
+      "crossModelAgreement": 0.904761904762,
+      "caseStrength": 0.511867856103
+    },
+    {
+      "id": "L2-02",
+      "passed": true,
+      "issues": [],
+      "crossModelAgreement": 0.97619047619,
+      "caseStrength": 0.463854183143
+    },
+    {
+      "id": "L3-01",
+      "passed": true,
+      "issues": [],
+      "crossModelAgreement": 0.964285714286,
+      "caseStrength": 0.782637325226
+    },
+    {
+      "id": "L3-02",
+      "passed": true,
+      "issues": [],
+      "crossModelAgreement": 0.809523809524,
+      "caseStrength": 0.666981547852
+    },
+    {
+      "id": "L4-01",
+      "passed": true,
+      "issues": [],
+      "crossModelAgreement": 0.785714285714,
+      "caseStrength": 0.651256444259
+    },
+    {
+      "id": "L4-02",
+      "passed": true,
+      "issues": [],
+      "crossModelAgreement": 0.857142857143,
+      "caseStrength": 0.723578541519
+    },
+    {
+      "id": "L5-01",
+      "passed": true,
+      "issues": [],
+      "crossModelAgreement": 0.97619047619,
+      "caseStrength": 0.491030154146
+    },
+    {
+      "id": "L5-02",
+      "passed": true,
+      "issues": [],
+      "crossModelAgreement": 0.857142857143,
+      "caseStrength": 0.785093797722
+    },
+    {
+      "id": "L6-01",
+      "passed": true,
+      "issues": [],
+      "crossModelAgreement": 0.97619047619,
+      "caseStrength": 0.576364565471
+    },
+    {
+      "id": "L6-02",
+      "passed": true,
+      "issues": [],
+      "crossModelAgreement": 0.97619047619,
+      "caseStrength": 0.557197042533
+    }
+  ]
+}

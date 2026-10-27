@@ -1,0 +1,175 @@
+{
+  "schemaVersion": "1.0.0",
+  "aggVersion": "agg-v1",
+  "probeSetHash": "3b3ffff8d9865936663059b824be13352af0ba9007322b8d6257eb31d91d8247",
+  "primary": {
+    "repoId": "bert-base-chinese",
+    "provider": "modelscope",
+    "providerModelId": "google-bert/bert-base-chinese",
+    "revision": "1ced0d0618636074b136d907a79e95e99f657b64",
+    "weightFile": "model.safetensors",
+    "localDir": ".models/primary",
+    "modelSha256": "3404a1ffd8da507042e8161013ba2a4fc49858b4e3f8fbf5ce5724f94883aec3"
+  },
+  "control": {
+    "repoId": "hfl/chinese-roberta-wwm-ext",
+    "provider": "modelscope",
+    "providerModelId": "dienstag/chinese-roberta-wwm-ext",
+    "revision": "c7f6dbf801a0243a6e5bd126fb9c4a8f9ae7a4e2",
+    "weightFile": "pytorch_model.bin",
+    "localDir": ".models/control",
+    "modelSha256": "1ded5a5a1c7841dee6e47942f7b5bf2bcf6f73ff19197580f852f7f638f86b35"
+  },
+  "lenses": {
+    "primary": {
+      "coref": [
+        [
+          8,
+          6
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          8,
+          1
+        ],
+        [
+          3,
+          8
+        ]
+      ],
+      "causal": [
+        [
+          9,
+          4
+        ],
+        [
+          0,
+          8
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          8,
+          0
+        ]
+      ],
+      "emotion": [
+        [
+          7,
+          9
+        ],
+        [
+          9,
+          4
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          6
+        ]
+      ],
+      "position": [
+        [
+          6,
+          3
+        ],
+        [
+          5,
+          4
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          11
+        ]
+      ]
+    },
+    "control": {
+      "coref": [
+        [
+          8,
+          1
+        ],
+        [
+          3,
+          8
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          8,
+          6
+        ]
+      ],
+      "causal": [
+        [
+          0,
+          8
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          3,
+          8
+        ],
+        [
+          8,
+          0
+        ]
+      ],
+      "emotion": [
+        [
+          7,
+          9
+        ],
+        [
+          4,
+          9
+        ],
+        [
+          0,
+          8
+        ],
+        [
+          5,
+          2
+        ]
+      ],
+      "position": [
+        [
+          6,
+          3
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          11
+        ],
+        [
+          1,
+          7
+        ]
+      ]
+    }
+  },
+  "calibratedAt": "2026-10-27T06:38:21.749562+00:00",
+  "downloadedAt": "2026-10-27T06:19:40.538127+00:00"
+}
