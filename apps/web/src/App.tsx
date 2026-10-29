@@ -69,7 +69,7 @@ export default function App() {
 
       // QA 钩子（只用于截图/自查，不影响正常入口）：?qa=play|report|parent&level=L3-02
       const qa = params.get("qa");
-      if (qa === null && !ready.introSeen) setScreen({ name: "intro" });
+      if (params.get("story") === "1" || (qa === null && !ready.introSeen)) setScreen({ name: "intro" });
       if (qa === "report") setScreen({ name: "report" });
       else if (qa === "parent") setScreen({ name: "parent" });
       else if (qa === "play") {
