@@ -11,10 +11,11 @@ export interface HomeScreenProps {
   readonly onReport: () => void;
   readonly onParent: () => void;
   readonly onClassroom: () => void;
+  readonly onIntro: () => void;
 }
 
 export function HomeScreen(props: HomeScreenProps) {
-  const { pkg, progress, dailyDone, onPlayLevel, onDaily, onReport, onParent, onClassroom } = props;
+  const { pkg, progress, dailyDone, onPlayLevel, onDaily, onReport, onParent, onClassroom, onIntro } = props;
   const numbers = levelNumbers(pkg);
   const stars = totalStars(progress);
 
@@ -83,6 +84,7 @@ export function HomeScreen(props: HomeScreenProps) {
       </ol>
 
       <nav className="home-nav">
+        <button type="button" className="btn" onClick={onIntro}>重看开场故事</button>
         <button type="button" className="btn" onClick={onReport}>
           侦探报告
         </button>

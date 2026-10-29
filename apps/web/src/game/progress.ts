@@ -41,6 +41,7 @@ export interface Progress {
   settings: Settings;
   lastLevelId: string | null;
   roundDraft: RoundDraft | null;
+  introSeen: boolean;
 }
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -59,6 +60,7 @@ export function createProgress(): Progress {
     settings: { ...DEFAULT_SETTINGS },
     lastLevelId: null,
     roundDraft: null,
+    introSeen: false,
   };
 }
 

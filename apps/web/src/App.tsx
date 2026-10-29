@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import type { Level } from "@attention/schema";
+import { IntroScreen } from "./screens/IntroScreen.tsx";
 import { ClassroomScreen } from "./screens/ClassroomScreen.tsx";
 import { ParentScreen } from "./screens/ParentScreen.tsx";
 import { PlayScreen } from "./screens/PlayScreen.tsx";
@@ -16,6 +17,7 @@ import { setTelemetryEnabled } from "./telemetry/index.ts";
 
 type Screen =
   | { name: "home" }
+  | { name: "intro" }
   | { name: "play"; level: Level; mode: "level" | "daily" }
   | { name: "report" }
   | { name: "parent" }
@@ -67,6 +69,7 @@ export default function App() {
 
       // QA 钩子（只用于截图/自查，不影响正常入口）：?qa=play|report|parent&level=L3-02
       const qa = params.get("qa");
+      if (qa === null && !ready.introSeen) setScreen({ name: "intro" });
       if (qa === "report") setScreen({ name: "report" });
       else if (qa === "parent") setScreen({ name: "parent" });
       else if (qa === "play") {
@@ -130,6 +133,16 @@ export default function App() {
       data-font={String(progress.settings.fontScale)}
       data-reduce-motion={progress.settings.reduceMotion ? "true" : "false"}
     >
+      {screen.name === "intro" ? (
+        <IntroScreen
+          onSkip={() => { setProgress({ ...progress, introSeen: true }); setScreen({ name: "home" }); }}
+          onStart={() => {
+            const next = { ...progress, introSeen: true };
+            setProgress(next);
+            setScreen({ name: "play", level: pickSentence(DRAFT_PACKAGE, next, 1), mode: "level" });
+          }}
+        />
+      ) : null}
       {screen.name === "home" ? (
         <HomeScreen
           pkg={DRAFT_PACKAGE}
@@ -148,6 +161,7 @@ export default function App() {
           onReport={() => {
             setScreen({ name: "report" });
           }}
+          onIntro={() => setScreen({ name: "intro" })}
           onClassroom={() => { setScreen({ name: "classroom" }); }}
           onParent={() => {
             setScreen({ name: "parent" });
