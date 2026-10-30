@@ -19,7 +19,7 @@ import { setTelemetryEnabled } from "./telemetry/index.ts";
 type Screen =
   | { name: "home" }
   | { name: "intro" }
-  | { name: "content-practice" }
+  | { name: "content-practice"; level: number }
   | { name: "play"; level: Level; mode: "level" | "daily" }
   | { name: "report" }
   | { name: "parent" }
@@ -141,7 +141,7 @@ export default function App() {
           onStart={() => {
             const next = { ...progress, introSeen: true };
             setProgress(next);
-            setScreen({ name: "play", level: pickSentence(DRAFT_PACKAGE, next, 1), mode: "level" });
+            setScreen({ name: "content-practice", level: 1 });
           }}
         />
       ) : null}
@@ -151,11 +151,7 @@ export default function App() {
           progress={progress}
           dailyDone={dailyDone}
           onPlayLevel={(levelNumber) => {
-            setScreen({
-              name: "play",
-              level: pickSentence(DRAFT_PACKAGE, progress, levelNumber),
-              mode: "level",
-            });
+            setScreen({ name: "content-practice", level: levelNumber });
           }}
           onDaily={() => {
             setScreen({ name: "play", level: daily, mode: "daily" });
@@ -163,7 +159,6 @@ export default function App() {
           onReport={() => {
             setScreen({ name: "report" });
           }}
-          onContentPractice={() => setScreen({ name: "content-practice" })}
           onIntro={() => setScreen({ name: "intro" })}
           onClassroom={() => { setScreen({ name: "classroom" }); }}
           onParent={() => {
@@ -172,7 +167,16 @@ export default function App() {
         />
       ) : null}
 
-      {screen.name === "content-practice" ? <ContentPracticeScreen onBack={() => setScreen({ name: "home" })} /> : null}
+      {screen.name === "content-practice" ? <ContentPracticeScreen
+        key={screen.level}
+        level={screen.level}
+        onBack={() => setScreen({ name: "home" })}
+        onComplete={(level) => setProgress((current) => current === null ? current : {
+          ...current,
+          completedContentLevels: [...new Set([...(current.completedContentLevels ?? []), level])],
+        })}
+        onNextLevel={() => setScreen({ name: "content-practice", level: Math.min(screen.level + 1, 6) })}
+      /> : null}
 
       {screen.name === "play" ? (
         <PlayScreen

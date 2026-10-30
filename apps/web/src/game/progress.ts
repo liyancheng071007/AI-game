@@ -42,6 +42,7 @@ export interface Progress {
   lastLevelId: string | null;
   roundDraft: RoundDraft | null;
   introSeen: boolean;
+  completedContentLevels: number[];
 }
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -61,6 +62,7 @@ export function createProgress(): Progress {
     lastLevelId: null,
     roundDraft: null,
     introSeen: false,
+    completedContentLevels: [],
   };
 }
 
