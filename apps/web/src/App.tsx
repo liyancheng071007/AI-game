@@ -176,6 +176,7 @@ export default function App() {
 
       {screen.name === "play" ? (
         <PlayScreen
+          key={`${screen.mode}:${screen.level.id}`}
           level={screen.level}
           progress={progress}
           mode={screen.mode}
