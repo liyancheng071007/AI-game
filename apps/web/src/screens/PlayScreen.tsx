@@ -4,7 +4,6 @@ import type { LensId, Level } from "@attention/schema";
 import { Sentence } from "../components/Sentence.tsx";
 import { LensTabs } from "../components/LensTabs.tsx";
 import { ResultPanel } from "../components/ResultPanel.tsx";
-import { ScienceCardSheet } from "../components/ScienceCardSheet.tsx";
 import {
   buildTokenViews,
   canSubmit,
@@ -17,7 +16,6 @@ import {
 } from "../game/domain.ts";
 import type { HeatMode } from "../game/domain.ts";
 import { flowMachine } from "../game/flow.ts";
-import { pickCard } from "../game/cards.ts";
 import type { Progress, RoundDraft } from "../game/progress.ts";
 import type { SessionStat } from "../game/report.ts";
 import { track } from "../telemetry/index.ts";
@@ -45,7 +43,6 @@ const SESSION_BREAK_MS = 8 * 60 * 1000;
 export function PlayScreen(props: PlayScreenProps) {
   const {
     level,
-    progress,
     mode,
     heatMode,
     reduceMotion,
@@ -99,13 +96,11 @@ export function PlayScreen(props: PlayScreenProps) {
   }, [selection.selected, hintUsed, revealed, level.id, onDraftChange]);
 
   const [scanning, setScanning] = useState(false);
-  const [cardOpen, setCardOpen] = useState(false);
   const [breakDue, setBreakDue] = useState(false);
 
   const startedAt = useRef(Date.now());
   const undoCount = useRef(0);
   const hintMarked = useRef(false);
-  const cardOpenedAt = useRef<number | null>(null);
 
   useEffect(() => {
     track({ name: "level_start", levelId: level.id, level: level.level });
@@ -139,28 +134,6 @@ export function PlayScreen(props: PlayScreenProps) {
   );
 
   const groupCount = selectedGroupCount(level, selection.selected);
-  const wordCount = views.filter((view) => view.role === "word").length;
-
-  const card = useMemo(() => {
-    if (attempt === null) return null;
-    const recent = progress.sessions.slice(-20);
-    const corefMistakes = recent.filter(
-      (item) => item.missed.some((word) => ["它", "他", "她"].includes(word)),
-    ).length;
-    let highStreak = 0;
-    for (const item of [...recent].reverse()) {
-      if (item.score >= 80) highStreak += 1;
-      else break;
-    }
-    return pickCard({
-      primary: attempt.feedback.primary,
-      selectedCount: groupCount,
-      wordCount,
-      corefMistakes,
-      highStreak,
-      hasCausal: level.causal.length > 0,
-    });
-  }, [attempt, groupCount, progress.sessions, wordCount, level.causal.length]);
 
   function finish(goNext = false) {
     if (attempt === null) return;
@@ -343,24 +316,6 @@ export function PlayScreen(props: PlayScreenProps) {
           </div>
 
           <ResultPanel level={level} evaluation={attempt} lens={lens} />
-
-          {card !== null ? (
-            <ScienceCardSheet
-              card={card}
-              open={cardOpen}
-              onToggle={() => {
-                const next = !cardOpen;
-                setCardOpen(next);
-                if (next) {
-                  cardOpenedAt.current = Date.now();
-                  track({ name: "card_open", cardId: card.id });
-                } else if (cardOpenedAt.current !== null) {
-                  track({ name: "card_read", cardId: card.id, durationMs: Date.now() - cardOpenedAt.current });
-                  cardOpenedAt.current = null;
-                }
-              }}
-            />
-          ) : null}
 
           <div className="round-actions">
             <button
