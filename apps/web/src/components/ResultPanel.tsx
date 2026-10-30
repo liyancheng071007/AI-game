@@ -1,6 +1,7 @@
+import { createTargetGroups } from "@attention/engine";
 import type { LensId, Level } from "@attention/schema";
 import type { Evaluation } from "../game/domain.ts";
-import { idealTokenIndices, starLabel, nextStarHint, LENS_LABELS } from "../game/domain.ts";
+import { starLabel, nextStarHint, LENS_LABELS } from "../game/domain.ts";
 
 export interface ResultPanelProps {
   readonly level: Level;
@@ -21,11 +22,17 @@ function Stars({ star }: { star: 0 | 1 | 2 | 3 }) {
 }
 
 export function ResultPanel({ level, evaluation, lens }: ResultPanelProps) {
-  const { score, feedback } = evaluation;
+  const { score } = evaluation;
   const hint = nextStarHint(score.score);
-  const idealText = [
-    ...new Set(idealTokenIndices(level, lens).map((index) => level.tokens[index] ?? "")),
-  ].join("、");
+  const groups = createTargetGroups(level, lens);
+  const label = (id: string): string => {
+    const group = groups.find((item) => item.groupId === id);
+    if (!group) return "未知词组";
+    const words = [...new Set(group.tokenIndices.map((index) => level.tokens[index] ?? ""))];
+    const name = words.map((word) => `「${word}」`).join(" / ");
+    return group.tokenIndices.length > 1 ? `${name}（${group.tokenIndices.length}处同指，合并为一组）` : name;
+  };
+  const list = (ids: readonly string[]): string => ids.length ? ids.map(label).join("、") : "无";
 
   return (
     <section className="result" aria-live="polite">
@@ -40,26 +47,16 @@ export function ResultPanel({ level, evaluation, lens }: ResultPanelProps) {
         </div>
       </header>
 
-      <ul className="feedback" data-feedback-primary={feedback.primary}>
-        <li className="feedback__row" data-copy-id={feedback.sections.right.copyId}>
-          <span className="feedback__tag">对在哪</span>
-          <span className="feedback__text">{feedback.sections.right.text}</span>
-        </li>
-        <li className="feedback__row" data-copy-id={feedback.sections.missed.copyId}>
-          <span className="feedback__tag">漏在哪</span>
-          <span className="feedback__text">{feedback.sections.missed.text}</span>
-        </li>
-        <li className="feedback__row" data-copy-id={feedback.sections.adjust.copyId}>
-          <span className="feedback__tag">怎么调</span>
-          <span className="feedback__text">{feedback.sections.adjust.text}</span>
-        </li>
-      </ul>
-
-      <div className="result__explain" data-copy-id={level.explain.copyId}>
-        <p className="result__explain-text">{level.explain.text}</p>
-        <p className="result__ideal">
-          当前透镜（{LENS_LABELS[lens]}）里 AI 看得最重的是：{idealText}
-        </p>
+      <div className="result__explain">
+        <p className="result__explain-text"><strong>本题怎样得到满分？</strong></p>
+        <p>在当前{LENS_LABELS[lens]}中，选齐以下目标组，且不额外选择其他组：{list(score.idealGroupIds)}。</p>
+        <p><strong>你选对：</strong>{list(score.hitGroupIds)}</p>
+        <p><strong>还缺：</strong>{list(score.missedGroupIds)}</p>
+        <p><strong>额外选择：</strong>{list(score.extraGroupIds)}</p>
+        <p>同一个实体出现多次时，选中任一处就算选中一组。词块显示的是单处权重，评分时同组权重会相加；因此最亮的单个词不一定是权重最高的组。</p>
+        <p>本次得分：覆盖率 {(score.coverage * 100).toFixed(1)}% × 选择精度 {(score.precision * 100).toFixed(1)}%{score.keyMissFactor < 1 ? " × 未选最高组的折半系数" : ""}{score.overSelectionFactor < 1 ? " × 超选系数" : ""}，四舍五入得到 {score.score.toFixed(1)} 分。</p>
+        <p>不同句子和透镜的权重不同，满分目标也会变化；这个分数衡量的是预测与该模型样例的吻合程度。</p>
+        <p data-copy-id={level.explain.copyId}>{level.explain.text}</p>
       </div>
 
       <div className="result__legend">

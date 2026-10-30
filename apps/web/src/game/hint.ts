@@ -48,6 +48,6 @@ export function computeHint(level: Level, selected: readonly number[]): HintResu
   return {
     index: best.index,
     copyId: "HINT-EXCLUDE-01",
-    text: `手电照到「${level.tokens[best.index] ?? ""}」：AI 几乎没看它，可以先把它排除。`,
+    text: `手电照到「${level.tokens[best.index] ?? ""}」：它不在当前全景镜的主要评分目标里，可以先排除。`,
   };
 }

@@ -1137,3 +1137,12 @@ body {
 .intro__how { list-style:none; padding:0; display:grid; gap:10px; }.intro__how li { display:flex; gap:12px; align-items:center; }.intro__how span { background:#fce7b3; color:#805414; width:30px; height:30px; display:grid; place-items:center; border-radius:50%; font-weight:800; }
 .intro__foot { color:#8a7c67; font-size:13px; text-align:center; margin-top:22px; }
 @media (max-width: 650px) { .intro { padding-top:16px; }.intro__stage { grid-template-columns:1fr; }.intro__art { min-height:0; height:205px; }.intro__art img { height:205px; width:auto; }.intro__content { padding:24px 20px 28px; }.intro__progress { margin:14px 0; }.intro__foot { margin-top:14px; } }
+
+.practice-entry { margin-bottom: 12px; }
+.practice__section-label,.practice__notice { color:#625a4a; font-size:14px; line-height:1.6; }
+.practice__notice { background:#fff6df; border-radius:12px; padding:12px 16px; }
+.practice__tag { color:#996419; font-size:14px; font-weight:700; }
+.practice__sentence { font-size:clamp(22px,4vw,30px); line-height:1.7; font-weight:700; color:#2b3444; }
+.practice__question { font-size:21px; margin:22px 0 8px; }
+.practice__result { background:#f3f8ed; padding:16px; border-radius:12px; margin-top:16px; }
+.practice__result h2 { margin:0; font-size:20px; }

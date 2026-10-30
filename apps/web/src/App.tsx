@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import type { Level } from "@attention/schema";
+import { ContentPracticeScreen } from "./screens/ContentPracticeScreen.tsx";
 import { IntroScreen } from "./screens/IntroScreen.tsx";
 import { ClassroomScreen } from "./screens/ClassroomScreen.tsx";
 import { ParentScreen } from "./screens/ParentScreen.tsx";
@@ -18,6 +19,7 @@ import { setTelemetryEnabled } from "./telemetry/index.ts";
 type Screen =
   | { name: "home" }
   | { name: "intro" }
+  | { name: "content-practice" }
   | { name: "play"; level: Level; mode: "level" | "daily" }
   | { name: "report" }
   | { name: "parent" }
@@ -161,6 +163,7 @@ export default function App() {
           onReport={() => {
             setScreen({ name: "report" });
           }}
+          onContentPractice={() => setScreen({ name: "content-practice" })}
           onIntro={() => setScreen({ name: "intro" })}
           onClassroom={() => { setScreen({ name: "classroom" }); }}
           onParent={() => {
@@ -168,6 +171,8 @@ export default function App() {
           }}
         />
       ) : null}
+
+      {screen.name === "content-practice" ? <ContentPracticeScreen onBack={() => setScreen({ name: "home" })} /> : null}
 
       {screen.name === "play" ? (
         <PlayScreen

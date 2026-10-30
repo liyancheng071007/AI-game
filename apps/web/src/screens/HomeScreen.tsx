@@ -12,10 +12,11 @@ export interface HomeScreenProps {
   readonly onParent: () => void;
   readonly onClassroom: () => void;
   readonly onIntro: () => void;
+  readonly onContentPractice: () => void;
 }
 
 export function HomeScreen(props: HomeScreenProps) {
-  const { pkg, progress, dailyDone, onPlayLevel, onDaily, onReport, onParent, onClassroom, onIntro } = props;
+  const { pkg, progress, dailyDone, onPlayLevel, onDaily, onReport, onParent, onClassroom, onIntro, onContentPractice } = props;
   const numbers = levelNumbers(pkg);
   const stars = totalStars(progress);
 
@@ -36,6 +37,10 @@ export function HomeScreen(props: HomeScreenProps) {
         <strong>开发体验版</strong> · 题目与科普内容仍待人工审核，暂不适用于儿童正式教学或研究。
         「豆包」是虚构角色；注意力只是理解模型的线索，并非完整解释。
       </aside>
+      <button type="button" className="daily-entry practice-entry" onClick={onContentPractice}>
+        <span className="daily-entry__tag">新题库</span><span className="daily-entry__text"><strong>句子线索练习</strong><br />17 句 · 因果与指代 · 每题有解释</span><span aria-hidden="true">→</span>
+      </button>
+      <p className="practice__section-label">以下为模型注意力技术样例（重复句式，仅供对照）</p>
       <button type="button" className="daily-entry" onClick={onDaily}>
         <span className="daily-entry__tag">今日一句</span>
         <span className="daily-entry__text">
