@@ -9,7 +9,19 @@ import type { Level, LevelPackage } from "@attention/schema";
 import raw from "./levels.draft.json";
 import { assertPackage } from "./contract.ts";
 
-export const DRAFT_PACKAGE: LevelPackage = assertPackage(raw as unknown);
+const ORIGINAL_PACKAGE = assertPackage(raw as unknown);
+
+// 历史模型权重仍对应原文：仅转换显示名称，不宣称重新运行了模型。
+export const DRAFT_PACKAGE: LevelPackage = {
+  ...ORIGINAL_PACKAGE,
+  levels: ORIGINAL_PACKAGE.levels.map((level) => ({
+    ...level,
+    tokens: level.tokens.map((word) => word.replaceAll("妈妈牛", "牛来")),
+    coref: level.coref.map((group) => ({ ...group, entity: group.entity.replaceAll("妈妈牛", "牛来") })),
+    explain: { ...level.explain, text: level.explain.text.replaceAll("妈妈牛", "牛来") },
+    humanRationale: level.humanRationale.replaceAll("妈妈牛", "牛来"),
+  })),
+};
 
 /** 默认关卡：L3-02 同时带 coref 与 causal，是当前数据里最完整的一句。 */
 export const DEFAULT_LEVEL_ID = "L3-02";

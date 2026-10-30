@@ -47,7 +47,7 @@ function classify(word: string): "connective" | "pronoun" | "emotion" | "entity"
   if (PRONOUNS.has(word)) return "pronoun";
   if (EMOTIONS.has(word)) return "emotion";
   // 句库主角只有四个名字
-  if (["豆包", "奶娃", "妈妈牛", "小胖"].includes(word)) return "entity";
+  if (["豆包", "奶娃", "妈妈牛", "牛来", "小胖"].includes(word)) return "entity";
   return "other";
 }
 

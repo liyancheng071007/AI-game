@@ -40,7 +40,7 @@ export function HomeScreen(props: HomeScreenProps) {
       <button type="button" className="daily-entry practice-entry" onClick={onContentPractice}>
         <span className="daily-entry__tag">新题库</span><span className="daily-entry__text"><strong>句子线索练习</strong><br />17 句 · 因果与指代 · 每题有解释</span><span aria-hidden="true">→</span>
       </button>
-      <p className="practice__section-label">以下为模型注意力技术样例（重复句式，仅供对照）</p>
+      <p className="practice__section-label">以下为模型注意力技术样例（重复句式，仅供对照；部分角色名称已更新，模型权重来自更名前的原句）</p>
       <button type="button" className="daily-entry" onClick={onDaily}>
         <span className="daily-entry__tag">今日一句</span>
         <span className="daily-entry__text">
