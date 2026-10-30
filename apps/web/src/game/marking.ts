@@ -26,6 +26,17 @@ export function evaluateMarks(q: MarkQuestion, selected: readonly number[]) {
   const hit = picked.filter(key => target.includes(key));
   const missed = target.filter(key => !picked.includes(key));
   const extra = picked.filter(key => !target.includes(key));
+  // 评分基于内容标注：核心 60 分、相关线索 40 分；额外选择降低精度。
+  // 某档为空时把分值留给另一档，避免出现无法达到的满分。
+  const aHit = a.filter(key => picked.includes(key)).length;
+  const bHit = b.filter(key => picked.includes(key)).length;
+  const coreMax = a.length ? (b.length ? 60 : 100) : 0;
+  const relatedMax = b.length ? (a.length ? 40 : 100) : 0;
+  const corePoints = a.length ? coreMax * aHit / a.length : 0;
+  const relatedPoints = b.length ? relatedMax * bHit / b.length : 0;
+  const precision = picked.length ? hit.length / picked.length : 0;
+  const score = Math.round((corePoints + relatedPoints) * precision * 10) / 10;
+  const star = score >= 90 ? 3 : score >= 60 ? 2 : score >= 30 ? 1 : 0;
   let card:ContentCardId | null = null;
   const connectorIndices = q.targetsA.filter(i => ["因为","所以","于是","结果","因此"].includes(q.tokens[i]!));
   if (q.coref.length > 0 && !picked.includes("coref")) card = "K1";
@@ -33,5 +44,5 @@ export function evaluateMarks(q: MarkQuestion, selected: readonly number[]) {
   else if (picked.length >= MARK_CAP) card = "K4";
   else if (extra.length >= 2) card = "K6";
   else if (b.length > 0 && a.every(key => picked.includes(key)) && b.some(key => !picked.includes(key))) card = "K5";
-  return { a,b,target,hit,missed,extra,card };
+  return { a,b,target,hit,missed,extra,card,aHit,bHit,corePoints,relatedPoints,coreMax,relatedMax,precision,score,star };
 }

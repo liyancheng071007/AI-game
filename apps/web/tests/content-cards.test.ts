@@ -32,3 +32,15 @@ test("内容表有 12 张卡，遗漏指代和连接词分别触发 K1、K2", ()
   const coref=items.find(x=>x.sourceId===2)!; assert.equal(evaluateMarks(coref,[coref.targetsA[0]!]).card,"K1");
   const cause=items.find(x=>x.sourceId===4)!; assert.equal(evaluateMarks(cause,[cause.targetsB[0]!]).card,"K2");
 });
+
+test("得分按核心、相关线索和选择精度计算，同指只计一组", () => {
+  const q=items.find(x=>x.sourceId===1)!;
+  assert.equal(evaluateMarks(q,[]).score,0);
+  assert.equal(evaluateMarks(q,[q.targetsA[0]!]).score,30);
+  assert.equal(evaluateMarks(q,q.targetsA).score,60);
+  assert.equal(evaluateMarks(q,[...q.targetsA,q.targetsB[0]!]).score,80);
+  assert.equal(evaluateMarks(q,[...q.targetsA,0]).score,40);
+  assert.equal(evaluateMarks(q,[...q.targetsA,...q.targetsB]).score,100);
+  const c=items.find(x=>x.sourceId===2)!;
+  assert.equal(evaluateMarks(c,[c.coref[0]!]).score,evaluateMarks(c,[c.coref[1]!]).score);
+});
