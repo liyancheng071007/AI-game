@@ -1146,3 +1146,12 @@ body {
 .practice__question { font-size:21px; margin:22px 0 8px; }
 .practice__result { background:#f3f8ed; padding:16px; border-radius:12px; margin-top:16px; }
 .practice__result h2 { margin:0; font-size:20px; }
+
+.practice__tokens { display:flex; flex-wrap:wrap; gap:8px 5px; align-items:center; margin:20px 0; line-height:1.6; }
+.practice__token { min-width:44px; min-height:44px; border:1px solid #d6dfeb; border-radius:10px; background:#f7faff; color:#24354c; padding:7px 10px; font:inherit; font-size:20px; cursor:pointer; }
+.practice__token--selected { border:2px solid #cf8c15; background:#fff1cd; padding:6px 9px; }
+.practice__token:disabled { opacity:1; color:#24354c; }
+.practice__punct { font-size:22px; color:#5b6570; }
+.practice__library { margin-top:20px; padding:15px; background:white; border:1px solid #e3e6eb; border-radius:12px; }
+.practice__library summary { cursor:pointer; font-weight:700; min-height:44px; }
+.practice__library li { margin:8px 0; }
